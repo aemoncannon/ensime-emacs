@@ -1,8 +1,10 @@
+before_install:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+
 install:
-  - sudo apt-get install emacs
-  - sudo apt-get install xvfb
+  - "sudo apt-get install emacs"
 
 script:
-  - mkdir frames
-  - xvfb :1 -fbdir frames &
-  - emacs -d :1 --no-init-file --load .emacs_test.el
+  - "mkdir frames"
+  - "emacs -d :99.0 --no-init-file --load .emacs_test.el"
