@@ -5,10 +5,6 @@ env:
 #    - EMACS=emacs23
     - EMACS=emacs24
 
-before_install:
-  - "export DISPLAY=:9.0"
-  - "sh -e /etc/init.d/xvfb start"
-
 
 install:
   - if [ "$EMACS" = "emacs23" ]; then
@@ -22,7 +18,10 @@ install:
     fi
 
 script:
-  - "$EMACS --version && $EMACS -d :9.0 --no-init-file --load .emacs_test.el"
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - "sleep 3"
+  - "$EMACS --version && $EMACS -d :99 --no-init-file --load .emacs_test.el"
 
 
   
