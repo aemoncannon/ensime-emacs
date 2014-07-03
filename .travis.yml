@@ -4,5 +4,5 @@ install:
 
 script:
   - mkdir frames
-  - sudo xvfb :1 -fbdir frames &
+  - xvfb :1 -fbdir frames &
   - emacs -d :1 --no-init-file --load .emacs_test.el
