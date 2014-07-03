@@ -15,6 +15,6 @@ install:
         sudo apt-get install -qq emacs24 emacs24-el;
     fi
 
-script: ./travis.sh
+script: ./.travis.sh
 
   
