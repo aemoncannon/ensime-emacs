@@ -1,2 +1,8 @@
-install: sudo apt-get install emacs
-script: emacs -nw --no-init-file --load .emacs_test.el
+install:
+  - sudo apt-get install emacs24
+  - sudo apt-get install xvfb
+
+script:
+  - mkdir frames
+  - sudo xvfb :1 -fbdir frames &
+  - emacs -d :1 --no-init-file --load .emacs_test.el
