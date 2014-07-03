@@ -2,9 +2,7 @@ language: emacs-lisp
 
 env:
   matrix:
-    include:
-      - env: EMACS=emacs24
-        env: SCALA_VERSION=2.10
+    - EMACS=emacs24 SCALA_VERSION=2.10
 
 install:
   - if [ "$EMACS" = "emacs23" ]; then
