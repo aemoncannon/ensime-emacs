@@ -32,7 +32,12 @@
 (toggle-scroll-bar 0)
 (setq backup-directory-alist '(("." . (ensime-temp-directory))))
 
-(write-region "Starting..." nil "emacs.log" 'append)
+(defun message (&rest args)
+  (let ((str (apply 'format args)))
+    (write-region str nil "ensime_test.log" 'append)))
+
 (ensime-run-all-tests)
-(write-region "Finishing..." nil "emacs.log" 'append)
-(kill-emacs 0)
+
+;;(message "Finishing.")
+
+;;(kill-emacs 0)
