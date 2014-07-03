@@ -1,3 +1,7 @@
+(defun message (&rest args)
+  (let ((str (format "-- %s\n" (apply 'format args))))
+    (write-region str nil "ensime_test.log" 'append)))
+
 (setq user-emacs-directory (expand-file-name "./emacs.d"))
 (require 'package)
 (add-to-list 'package-archives
@@ -31,10 +35,6 @@
 (menu-bar-mode 0)
 (toggle-scroll-bar 0)
 (setq backup-directory-alist '(("." . (ensime-temp-directory))))
-
-(defun message (&rest args)
-  (let ((str (format "-- %s\n" (apply 'format args))))
-    (write-region str nil "ensime_test.log" 'append)))
 
 (defun ensime-test-output (txt)
   (let ((str (format "%s\n" txt)))
