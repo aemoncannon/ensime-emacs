@@ -33,7 +33,11 @@
 (setq backup-directory-alist '(("." . (ensime-temp-directory))))
 
 (defun message (&rest args)
-  (let ((str (format "%s\n" (apply 'format args))))
+  (let ((str (format "-- %s\n" (apply 'format args))))
+    (write-region str nil "ensime_test.log" 'append)))
+
+(defun ensime-test-output (txt)
+  (let ((str (format "%s\n" txt)))
     (write-region str nil "ensime_test.log" 'append)))
 
 (ensime-run-all-tests)
