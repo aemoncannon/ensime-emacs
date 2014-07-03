@@ -32,7 +32,7 @@
 (toggle-scroll-bar 0)
 (setq backup-directory-alist '(("." . (ensime-temp-directory))))
 
-(princ "Starting elisp integration tests...")
+(write-region "Starting..." nil "emacs.log" 'append)
 (ensime-run-all-tests)
-(princ "Finished elisp integration tests.")
+(write-region "Finishing..." nil "emacs.log" 'append)
 (kill-emacs 0)
