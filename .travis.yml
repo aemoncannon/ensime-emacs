@@ -1,5 +1,5 @@
 install:
-  - sudo apt-get install emacs24
+  - sudo apt-get install emacs
   - sudo apt-get install xvfb
 
 script:
