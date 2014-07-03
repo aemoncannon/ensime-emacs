@@ -2,9 +2,9 @@ language: emacs-lisp
 
 env:
   matrix:
-#    - EMACS=emacs23
-    - EMACS=emacs24
-
+    include:
+      - env: EMACS=emacs24
+        env: SCALA_VERSION=2.10
 
 install:
   - if [ "$EMACS" = "emacs23" ]; then
@@ -18,12 +18,17 @@ install:
     fi
 
 script:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - "sleep 3"
-  - "touch ensime_test.log"
-  - "$EMACS --version && $EMACS -d :99 --no-init-file --load .emacs_test.el &"
-  - "tail -f ensime_test.log"
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - sleep 3
+  - mkdir ~/.emacs.d
+  - mkdir ~/.emacs.d/ensime-servers
+  - mkdir ~/.emacs.d/ensime-servers/$SCALA_VERSION
+  - touch ensime_test.log
+  - $EMACS --version
+  - $EMACS --batch --no-init-file --load .emacs_test.el --eval '(ensime-update-server "$SCALA_VERSION")'
+  - $EMACS -d :99 --no-init-file --load .emacs_test.el --eval '(ensime-run-all-tests)' &
+  - tail -f ensime_test.log
 
 
   

@@ -73,7 +73,7 @@
 
 ;(ensime-get-or-download-server "2.10")
 ;(ensime-get-or-download-server "2.9.3")
-;(ensime-update-server "2.9.3")
+;;(ensime-update-server "2.9.3")
 
 (provide 'ensime-server-downloader)
 ;;; ensime-server-downloader.el ends here

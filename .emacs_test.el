@@ -1,5 +1,6 @@
 (defun message (&rest args)
   (let ((str (format "-- %s\n" (apply 'format args))))
+    (princ str)
     (write-region str nil "ensime_test.log" 'append)))
 
 (setq user-emacs-directory (expand-file-name "./emacs.d"))
@@ -38,9 +39,10 @@
 
 (defun ensime-test-output (txt)
   (let ((str (format "%s\n" txt)))
+    (princ str)
     (write-region str nil "ensime_test.log" 'append)))
 
-(ensime-run-all-tests)
+;;(ensime-run-all-tests)
 
 ;;(message "Finishing.")
 
