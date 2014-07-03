@@ -3,8 +3,8 @@ before_install:
   - "sh -e /etc/init.d/xvfb start"
 
 install:
-  - "sudo apt-get install emacs"
+  - "sudo apt-get install emacs-snapshot-gtk"
 
 script:
   - "mkdir frames"
-  - "emacs -d :9 --no-init-file --load .emacs_test.el"
+  - "emacs -d :9.0 --no-init-file --load .emacs_test.el"
