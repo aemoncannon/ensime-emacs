@@ -22,6 +22,13 @@
 
 (eval-and-compile (require 'ensime))
 
+(defcustom ensime-test-server-version
+  (cond ((getenv "ENSIME_TEST_SERVER_VERSION"))
+	('t "2.10"))
+  "Location of the JDK's base directory"
+  :type 'string
+  :group 'ensime-test)
+
 (defvar ensime-testing-buffer "*ensime-tests*"
   "Contains the output of all the tests. Also tracks all the testing-specific
    buffer-local variables.")
@@ -94,6 +101,7 @@
                         :compile-jars ensime-test-env-classpath
                         :disable-index-on-startup t
                         :target "target"
+                        :scala-version ensime-test-server-version
                         )
                   extra-config))
          (conf-file (ensime-create-file

@@ -2,7 +2,7 @@ language: emacs-lisp
 
 env:
   matrix:
-    - "EMACS=emacs24 SCALA_VERSION=2.10"
+    - "EMACS=emacs24 ENSIME_TEST_SERVER_VERSION=2.10"
 
 install:
   - if [ "$EMACS" = "emacs23" ]; then
@@ -21,10 +21,10 @@ script:
   - "sleep 3"
   - "mkdir ~/.emacs.d"
   - "mkdir ~/.emacs.d/ensime-servers"
-  - "mkdir ~/.emacs.d/ensime-servers/$SCALA_VERSION"
+  - "mkdir ~/.emacs.d/ensime-servers/$ENSIME_TEST_SERVER_VERSION"
   - "touch ensime_test.log"
   - "$EMACS --version"
-  - "$EMACS --batch --no-init-file --load .emacs_test.el --eval '(ensime-update-server \"$SCALA_VERSION\")'"
+  - "$EMACS --batch --no-init-file --load .emacs_test.el --eval '(ensime-update-server \"$ENSIME_TEST_SERVER_VERSION\")'"
   - "$EMACS -d :99 --no-init-file --load .emacs_test.el --eval '(ensime-run-all-tests)' &"
   - "tail -f ensime_test.log"
 
