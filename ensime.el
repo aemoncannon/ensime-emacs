@@ -1409,6 +1409,7 @@ The functions are called with the process as their argument.")
   (with-current-buffer (process-buffer process)
     (goto-char (point-max))
     (insert string))
+  (message string)
   (ensime-process-available-input process))
 
 (defun ensime-process-available-input (process)
