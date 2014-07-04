@@ -5,6 +5,11 @@ env:
     - "EMACS=emacs24 ENSIME_TEST_SERVER_VERSION=2.10"
 
 install:
+  - wget http://apt.typesafe.com/repo-deb-build-0002.deb
+  - sudo dpkg -i repo-deb-build-0002.deb
+  - sudo apt-get update
+  - sudo apt-get install sbt
+  
   - if [ "$EMACS" = "emacs23" ]; then
         sudo apt-get update -qq &&
         sudo apt-get install -qq emacs23-gtk emacs23-el;
