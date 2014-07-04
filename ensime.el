@@ -1409,7 +1409,6 @@ The functions are called with the process as their argument.")
   (with-current-buffer (process-buffer process)
     (goto-char (point-max))
     (insert string))
-  (write-region string nil "ensime_test.log" 'append)
   (ensime-process-available-input process))
 
 (defun ensime-process-available-input (process)
