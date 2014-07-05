@@ -1,7 +1,15 @@
+(defun ensime-log-to-file (txt)
+  (write-region txt nil
+                (concat (file-name-as-directory
+                         (or (getenv "TRAVIS_BUILD_DIR") "."))
+                        "ensime_test.log") 'append))
+
 (defun message (&rest args)
-  (let ((str (format "-- %s\n" (apply 'format args))))
-    (princ str)
-    (write-region str nil "ensime_test.log" 'append)))
+  (ensime-log-to-file (format "-- %s\n" (apply 'format args))))
+
+(defun ensime--server-output-filter (process string)
+  "Logs all stdout from the server to a file."
+  (ensime-log-to-file string))
 
 (setq user-emacs-directory (expand-file-name "./emacs.d"))
 (require 'package)
@@ -38,9 +46,7 @@
 (setq backup-directory-alist '(("." . (ensime-temp-directory))))
 
 (defun ensime-test-output (txt)
-  (let ((str (format "%s\n" txt)))
-    (princ str)
-    (write-region str nil "ensime_test.log" 'append)))
+  (ensime-log-to-file (format "%s\n" txt)))
 
 ;;(ensime-run-all-tests)
 

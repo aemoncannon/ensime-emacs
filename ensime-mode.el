@@ -496,6 +496,13 @@ Analyzer will be restarted. All source will be recompiled."
 (defvar ensime-server-process-start-hook nil
   "Hook called whenever a new process gets started.")
 
+(defun ensime--server-output-filter (process string)
+  "Logs all stdout from the server to a file."
+  (when (buffer-live-p (process-buffer process))
+    (with-current-buffer (process-buffer process)
+      (goto-char (point-max))
+      (insert string))))
+
 (defun ensime--start-server (buffer scala-version flags user-env cache-dir)
   "Start an ensime server in the given buffer and return the created process.
 BUFFER is the buffer to receive the server output.
@@ -517,6 +524,7 @@ CACHE-DIR is the server's persistent output directory."
 	(append-to-file (concat "\njavaOptions += \"" flag "\"\n") nil buildfile))
       (comint-exec (current-buffer) buffer ensime-sbt-command nil (list "run")))
     (let ((proc (get-buffer-process (current-buffer))))
+      (set-process-filter proc 'ensime--server-output-filter)
       (ensime-set-query-on-exit-flag proc)
       (run-hooks 'ensime-server-process-start-hook)
       proc)))
