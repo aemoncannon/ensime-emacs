@@ -98,7 +98,7 @@
   :group 'ensime-mode
   :type 'sexp)
 
-(defcustom ensime-typecheck-when-idle t
+(defcustom ensime-typecheck-when-idle nil
   "Controls whether a modified buffer should be typechecked automatically.
 A typecheck is started when emacs is idle, if the buffer was modified
 since the last typecheck."

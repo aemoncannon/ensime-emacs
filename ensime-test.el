@@ -24,8 +24,8 @@
 
 (defcustom ensime-test-server-version
   (cond ((getenv "ENSIME_TEST_SERVER_VERSION"))
-	('t "2.10"))
-  "Location of the JDK's base directory"
+	('t "2.10.4"))
+  "Version of the ENSIME server to test against."
   :type 'string
   :group 'ensime-test)
 
