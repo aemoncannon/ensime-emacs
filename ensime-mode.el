@@ -498,6 +498,7 @@ Analyzer will be restarted. All source will be recompiled."
 
 (defun ensime--server-output-filter (process string)
   "Logs all stdout from the server to a file."
+  (ensime-log-to-file string)
   (when (buffer-live-p (process-buffer process))
     (with-current-buffer (process-buffer process)
       (goto-char (point-max))
