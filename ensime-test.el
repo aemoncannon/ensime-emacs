@@ -393,6 +393,7 @@
   `(let ((val ,pred))
      (if (not val)
          (with-current-buffer ensime-testing-buffer
+	   (message "Ensime test assertion failed %s." ',pred)
            (signal 'ensime-test-assert-failed
                    (format "Expected truth of %s." ',pred))))))
 
@@ -402,6 +403,7 @@
          (val-b ,b))
      (if (equal val-a val-b) t
        (with-current-buffer ensime-testing-buffer
+	 (message "Ensime test assertion failed %s = %s." ',a ',b)
          (signal 'ensime-test-assert-failed
                  (format "Expected %s to equal %S, but was %S." ',a val-b val-a))))))
 
