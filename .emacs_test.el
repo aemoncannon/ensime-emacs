@@ -1,5 +1,5 @@
 (defun ensime-log-to-file (txt)
-  (write-region txt nil  "/tmp/ensime_test.log" 'append))
+  (write-region txt nil  "/home/travis/ensime_test.log" 'append))
 
 (defun message (&rest args)
   (ensime-log-to-file (format "-- %s\n" (apply 'format args))))
