@@ -1,8 +1,5 @@
 (defun ensime-log-to-file (txt)
-  (write-region txt nil
-                (concat (file-name-as-directory
-                         (or (getenv "TRAVIS_BUILD_DIR") "."))
-                        "ensime_test.log") 'append))
+  (write-region txt nil  "ensime_test.log" 'append))
 
 (defun message (&rest args)
   (ensime-log-to-file (format "-- %s\n" (apply 'format args))))
@@ -15,7 +12,7 @@
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
 (require 'cl)
-(let ((needed-packages '(auto-complete dash)))
+(let ((needed-packages '(auto-complete dash s)))
   (unless (every #'package-installed-p needed-packages)
     (package-refresh-contents)
     (dolist (p needed-packages)
@@ -25,6 +22,7 @@
 (add-to-list 'load-path ".")
 
 (require 'ensime)
+
 (require 'ensime-test)
 
 (setq inhibit-startup-message t)
@@ -43,11 +41,6 @@
 
 (defun ensime-test-output (txt)
   (ensime-log-to-file (format "%s\n" txt)))
-
-(defun ensime--server-output-filter (process string)
-  "Logs all stdout from the server to a file."
-  (ensime-log-to-file string))
-
 
 ;;(ensime-run-all-tests)
 
