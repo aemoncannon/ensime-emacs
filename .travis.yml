@@ -1,4 +1,7 @@
-language: emacs-lisp
+language: scala
+
+jdk:
+- openjdk6
 
 env:
   matrix:

@@ -516,8 +516,7 @@ CACHE-DIR is the server's persistent output directory."
       (append-to-file buildcontents nil buildfile)
       (dolist (flag flags)
 	(append-to-file (concat "\njavaOptions += \"" flag "\"\n") nil buildfile))
-      (message "Created build.sbt: %s..." buildcontents)
-      (message "Running %s..." ensime-sbt-command)
+      (message "Running sbt %s..." ensime-sbt-command)
       (comint-exec (current-buffer) buffer ensime-sbt-command nil (list "run")))
     (let ((proc (get-buffer-process (current-buffer))))
       (ensime-set-query-on-exit-flag proc)
@@ -538,7 +537,7 @@ scalaVersion := \"SCALA_VERSION\"
 
 resolvers += Resolver.sonatypeRepo(\"snapshots\")
 
-libraryDependencies += \"org.ensime\" %% \"ensime\" % \"0.9.11-SNAPSHOT\"
+libraryDependencies += \"org.ensime\" %% \"ensime\" % \"0.9.10-SNAPSHOT\"
 
 val JavaTools = List (
   sys.env.get(\"JDK_HOME\").getOrElse(\"\"),
