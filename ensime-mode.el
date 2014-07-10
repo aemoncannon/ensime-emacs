@@ -536,7 +536,7 @@ scalaVersion := \"SCALA_VERSION\"
 
 resolvers += Resolver.sonatypeRepo(\"snapshots\")
 
-libraryDependencies += \"org.ensime\" %% \"ensime\" % \"0.9.10-SNAPSHOT\"
+libraryDependencies += \"org.ensime\" %% \"ensime\" % \"0.9.11-SNAPSHOT\"
 
 // guaranteed to exist when started from emacs
 val JavaTools = new File(sys.env(\"JAVA_HOME\"), \"/lib/tools.jar\")
