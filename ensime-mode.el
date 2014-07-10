@@ -515,9 +515,9 @@ CACHE-DIR is the server's persistent output directory."
       (append-to-file buildcontents nil buildfile)
       (dolist (flag flags)
 	(append-to-file (concat "\njavaOptions += \"" flag "\"\n") nil buildfile))
-      (message "Starting an ENSIME server in %s" buffer)
       (comint-exec (current-buffer) buffer ensime-sbt-command nil (list "run")))
     (let ((proc (get-buffer-process (current-buffer))))
+      (set-process-filter proc 'ensime--server-output-filter)
       (ensime-set-query-on-exit-flag proc)
       (run-hooks 'ensime-server-process-start-hook)
       proc)))
@@ -538,8 +538,15 @@ resolvers += Resolver.sonatypeRepo(\"snapshots\")
 
 libraryDependencies += \"org.ensime\" %% \"ensime\" % \"0.9.11-SNAPSHOT\"
 
-// guaranteed to exist when started from emacs
-val JavaTools = new File(sys.env(\"JAVA_HOME\"), \"/lib/tools.jar\")
+val JavaTools = List (
+  sys.env.get(\"JDK_HOME\").getOrElse(\"\"),
+  sys.env.get(\"JAVA_HOME\").getOrElse(\"\"),
+  System.getProperty(\"java.home\")
+).map {
+  n => new File(n + \"/lib/tools.jar\")
+}.find(_.exists).getOrElse (
+  throw new FileNotFoundException(\"tools.jar\")
+)
 
 unmanagedClasspath in Runtime += { Attributed.blank(JavaTools) }
 

@@ -1,5 +1,5 @@
 (defun ensime-log-to-file (txt)
-  (write-region txt nil  "ensime_test.log" 'append))
+  (write-region txt nil  "/tmp/ensime_test.log" 'append))
 
 (defun message (&rest args)
   (ensime-log-to-file (format "-- %s\n" (apply 'format args))))
@@ -41,6 +41,10 @@
 
 (defun ensime-test-output (txt)
   (ensime-log-to-file (format "%s\n" txt)))
+
+(defun ensime--server-output-filter (process string)
+  "Logs all stdout from the server to a file."
+  (ensime-log-to-file string))
 
 ;;(ensime-run-all-tests)
 
