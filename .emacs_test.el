@@ -9,6 +9,10 @@
 (defun message (&rest args)
   (ensime-log-to-file (format "-- %s\n" (apply 'format args))))
 
+(defun error (&rest args)
+  (message (apply 'format args))
+  (signal 'error (list (apply 'format args))))
+
 (setq user-emacs-directory (expand-file-name "./emacs.d"))
 (require 'package)
 (add-to-list 'package-archives
