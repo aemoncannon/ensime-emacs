@@ -1,5 +1,10 @@
+
+(defvar ensime-test-log-file
+  (concat (file-name-as-directory
+	   (or (getenv "TRAVIS_BUILD_DIR") "~")) "ensime_test.log"))
+
 (defun ensime-log-to-file (txt)
-  (write-region txt nil  "/home/travis/ensime_test.log" 'append))
+  (write-region txt nil ensime-test-log-file 'append))
 
 (defun message (&rest args)
   (ensime-log-to-file (format "-- %s\n" (apply 'format args))))
