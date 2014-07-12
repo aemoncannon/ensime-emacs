@@ -6,8 +6,8 @@
 (defun ensime-log-to-file (txt)
   (write-region txt nil ensime-test-log-file 'append))
 
-(defun message (&rest args)
-  (ensime-log-to-file (format "-- %s\n" (apply 'format args))))
+;;(defun message (&rest args)
+;;  (ensime-log-to-file (format "-- %s\n" (apply 'format args))))
 
 (defun error (&rest args)
   (message (apply 'format args))
