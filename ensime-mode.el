@@ -511,7 +511,7 @@ CACHE-DIR is the server's persistent output directory."
 	   (append user-env process-environment))
       (set (make-local-variable 'comint-process-echoes) nil)
       (set (make-local-variable 'comint-use-prompt-regexp) nil)
-      (add-hook 'comint-output-filter-functions '(lambda (txt) (message txt)))
+;;      (add-hook 'comint-output-filter-functions '(lambda (txt) (message txt)))
       (when (file-exists-p buildfile) (delete-file buildfile))
       (append-to-file buildcontents nil buildfile)
       (dolist (flag flags)
