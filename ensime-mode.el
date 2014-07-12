@@ -537,7 +537,7 @@ scalaVersion := \"SCALA_VERSION\"
 
 resolvers += Resolver.sonatypeRepo(\"snapshots\")
 
-libraryDependencies += \"org.ensime\" %% \"ensime\" % \"0.9.11-SNAPSHOT\"
+libraryDependencies += \"org.ensime\" %% \"ensime\" % \"0.9.10-SNAPSHOT\"
 
 val JavaTools = List (
   sys.env.get(\"JDK_HOME\").getOrElse(\"\"),
