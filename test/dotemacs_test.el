@@ -3,8 +3,19 @@
 		(format "%s\n" (apply 'format format-string args)))))
     (princ text 'external-debugging-output)
     text))
-
 (ad-activate 'message)
+
+(setq debug-on-error t)
+
+(setq debugger
+      (lambda (reason &optional arg2)
+	(message "Debugger entered!")
+	(let* ((i 3)
+	       (frame (backtrace-frame i)))
+	  (while frame
+	    (message "  %s" (cdr frame))
+	    (setq i (+ i 1))
+	    (setq frame (backtrace-frame i))))))
 
 (setq user-emacs-directory (expand-file-name "./emacs.d"))
 (require 'package)
@@ -50,7 +61,6 @@
 (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
 
 (setq inhibit-startup-message t)
-(setq debug-on-error nil)
 (setq debug-on-quit nil)
 (setq visible-bell t)
 (setq visual-line-mode nil)
